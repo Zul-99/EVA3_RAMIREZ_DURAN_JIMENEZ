@@ -1,0 +1,96 @@
+:root {
+  --sercotec-azul-principal: #0f1d3a;  /* El azul oscuro corporativo principal */
+  --sercotec-azul-brillante: #00aeef;  /* El celeste/azul brillante de los acento */
+  --sercotec-azul-suave: #1d3557;      /* Azul intermedio para efectos del hover */
+  --fondo-gris-sitio: #f8f9fa;         /* Fondo claro de las páginas */
+  --texto-oscuro: #212529;
+}
+
+/* 1. SECCIÓN GENERAL: Afecta a todas las páginas */
+body {
+  background-color: var(--fondo-gris-sitio) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
+  color: var(--texto-oscuro);
+}
+
+/* 2. TÍTULOS AUTOMÁTICOS EN AZUL*/
+h1, h2, h3, h4, h5, h6, 
+.text-success, 
+.accordion-header, 
+h2.text-success,
+h3.text-secondary {
+  color: var(--sercotec-azul-principal) !important;
+}
+
+/* Agrega la elegante barrita azul brillante de adorno al lado de los títulos h2  */
+h2, .text-primary-sercotec {
+  border-left: 5px solid var(--sercotec-azul-brillante) !important;
+  padding-left: 15px !important;
+  color: var(--sercotec-azul-principal) !important;
+  display: inline-block;
+}
+
+/* 3. NAVBAR GLOBAL AZUL */
+.navbar-personalizada {
+  background-color: var(--sercotec-azul-principal) !important;
+  border-bottom: 4px solid var(--sercotec-azul-brillante) !important;
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--sercotec-azul-brillante) !important;
+}
+
+/* 4. BOTONES EN AZUL AUTOMÁTICO */
+.btn-success, .btn-gradiente {
+  background-color: var(--sercotec-azul-principal) !important;
+  border: 1px solid var(--sercotec-azul-principal) !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  font-size: 13px !important;
+  letter-spacing: 0.5px;
+  padding: 10px 20px !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.btn-success:hover, .btn-gradiente:hover {
+  background-color: var(--sercotec-azul-suave) !important;
+  border-color: var(--sercotec-azul-suave) !important;
+  box-shadow: 0 4px 12px rgba(15, 29, 58, 0.2) !important;
+}
+
+/* 5. TARJETAS DE SERVICIO ELEGANTES */
+.card, .tarjeta-premium {
+  border: 1px solid #dee2e6 !important;
+  border-radius: 4px !important;
+  background-color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+  transition: all 0.2s ease-in-out !important;
+  overflow: hidden;
+}
+
+.card:hover, .tarjeta-premium:hover {
+  border-color: var(--sercotec-azul-brillante) !important;
+  box-shadow: 0 6px 18px rgba(15, 29, 58, 0.1) !important;
+}
+
+/* 6. FORMULARIOS Y CONTENEDORES  */
+.formulario-contenedor {
+  background-color: #ffffff !important;
+  border-radius: 4px !important;
+  padding: 35px;
+  border: 1px solid #dee2e6 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
