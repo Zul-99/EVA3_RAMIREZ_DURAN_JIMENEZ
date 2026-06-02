@@ -13,26 +13,19 @@ export function Nosotros() {
   // --- EFECTO PARA SIMULAR LA PETICIÓN A INTERNET ---
   useEffect(() => {
     //  función interna que simula una consulta a una base de datos externa
-    const obtenerPreguntasFrecuentes = () => {
-      // Promise para controlar el éxito de la operación asíncrona
-      return new Promise((resolve) => {
-        // Simulo un retraso de 1 segundo (1000ms) para emular la velocidad de internet
-        setTimeout(() => {
-          // Cuando pasa el segundo, "resuelvo" la promesa entregando mis datos simulados de Proviemplea
-          resolve([
-            { id: "0", pregunta: "¿Qué es el modelo de Búsqueda Inversa de Talento?", respuesta: "Permite a las empresas buscar perfiles idóneos de forma proactiva directamente en nuestra base de datos." },
-            { id: "1", pregunta: "¿Cómo garantiza Proviemplea la inclusión laboral?", respuesta: "Nuestra plataforma anonimiza datos curriculares en las primeras fases para evitar sesgos inconscientes." },
-            { id: "2", pregunta: "¿Tiene algún costo para las empresas?", respuesta: "No, todos los servicios de intermediación y asesoría técnica son totalmente gratuitos." }
-          ]);
-        }, 1000);
-      });
-    };
-
-    // Se ejecuto la función. Cuando la promise se cumple (.then), se recibe los datos reales
-    obtenerPreguntasFrecuentes().then((datos) => {
-      setFaqs(datos);
-      setCargando(false);
-    });
+    // Funcion de API real ~ Si funciona voy a llorar:
+  fetch('https://jsonplaceholder.typicode.com/posts?_limit=3') //<- API responde correctamente ~ trae texto en latin xd
+    .then(res => res.json())
+    .then(datos => {
+    // Mapeamos los campos de la API a nuestro formato
+      const faqsMapeadas = datos.map(item => ({
+        id: String(item.id),
+        pregunta: item.title,
+        respuesta: item.body
+    }));
+    setFaqs(faqsMapeadas); //<- recibe el array transformado en FaqsMapeadas
+    setCargando(false);
+  });
   }, []); // Le dejo los corchetes vacíos para asegurarme de que esto corra una sola vez al cargar la página
 
   // --- LO QUE MUESTRA EN LA PANTALLA ---

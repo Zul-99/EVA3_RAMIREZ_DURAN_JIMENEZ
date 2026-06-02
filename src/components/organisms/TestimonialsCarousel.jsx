@@ -31,12 +31,12 @@ export function TestimonialsCarousel() {
   return (
     <div className="my-5">
       {/* Título de la sección con la clase especial para heredar los estilos de Sercotec */}
-      <div className="mb-4">
-        <h3 className="fw-bold text-primary-sercotec">Lo que dicen las Empresas Aliadas</h3>
+      <div className="mb-4 text-center">
+        <h3 className="fw-bold text-primary-sercotec w-100">Lo que dicen las Empresas Aliadas</h3>
       </div>
 
-      {/* 🎠 EL CARRUSEL DE BOOTSTRAP: Configuro los indicadores de bolitas, las flechas y el tiempo de cambio (5 segundos) */}
-      <Carousel id="testimonios-carousel" indicators={true} controls={true} interval={5000} className="shadow rounded overflow-hidden">
+      {/*EL CARRUSEL DE BOOTSTRAP: Configuro los indicadores de bolitas, las flechas y el tiempo de cambio (5 segundos) */}
+      <Carousel id="testimonios-carousel" aria-label="Testimonios de empresas aliadas" indicators={true} controls={true} interval={5000} className="shadow rounded overflow-hidden">
         
         {/* USANDO .MAP PARA GENERAR LAS DIAPOSITIVAS DINÁMICAMENTE */}
         {/* Recorro mi array de 'testimonios' y por cada uno genero un bloque de diapositiva (Carousel.Item) */}
@@ -46,7 +46,7 @@ export function TestimonialsCarousel() {
             {/* Contenedor de la diapositiva: Centrado con Flexbox y aplicando el color de fondo personalizado de cada objeto */}
             <div 
               className="d-flex flex-column justify-content-center align-items-center p-5" 
-              style={{ ...t.stylePersonalized, minHeight: '250px' }}
+              style={{ ...t.stylePersonalizado, minHeight: '250px' }}
             >
               <div className="container text-center px-md-5">
                 {/* Imprime el comentario en cursiva */}

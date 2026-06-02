@@ -25,6 +25,8 @@ export function ServiceCard({ titulo, descripcion, imagen }) {
       <Card.Img 
         variant="top" 
         src={imagen || "https://via.placeholder.com/300x180"} 
+        alt={titulo}
+        loading='lazy' //<- No carga img hasta que el ususario este cerca de ella
         style={{ objectFit: 'cover', height: '180px' }}
       />
       

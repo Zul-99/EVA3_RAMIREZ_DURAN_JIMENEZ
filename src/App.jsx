@@ -1,10 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react'; // 1. Importamos useState para controlar el menú
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, NavLink } from 'react-router-dom';
 import { Inicio } from './pages/Inicio';
 import { Nosotros } from './pages/Nosotros';
 import { Servicios } from './pages/Servicios';
 import { Contacto } from './pages/Contacto';
+import { Footer } from './components/organisms/Footer'; // Importamos el componente Footer
+import logo from './assets/cropped-logo-cdn-2021.png'; // Cambio de ruta de imagenes (seguimos las buenas practicas :D)
+
 
 function App() {
   // 2. Estado para saber si el menú está abierto (true) o cerrado (false)
@@ -23,49 +26,78 @@ function App() {
   return (
     <Router>
       {/* Navbar Institucional */}
-      <nav className="navbar navbar-expand-lg navbar-dark navbar-personalizada shadow">
-        <div className="container d-flex justify-content-between align-items-center">
+      <nav className="navbar navbar-expand-lg navbar-dark navbar-personalizada shadow" aria-label="Navegacion Principal">
+        <div className="container">
           
-          {/* LADO IZQUIERDO: Logo Corporativo + Nombre */}
+          {/* LADO IZQUIERDO: Logo Corporativo */}
           <Link className="navbar-brand d-flex align-items-center" to="/" onClick={cerrarMenu}>
             <img
-              src="/IMAGENES/cropped-logo-cdn-2021.png"
+              src={logo}
               alt="Centros de Negocios Sercotec"
-              style={{ 
-                height: '45px', 
-                objectFit: 'contain',
-                marginRight: '12px'
-              }}
+              style={{ height: '45px', objectFit: 'contain' }}
             />
           </Link>
 
-          {/* LADO DERECHO: El Botón que abre y esconde la lista */}
+          {/* LADO DERECHO: El Botón que abre y esconde la lista (solo visible en mobile) */}
           <button 
             className="navbar-toggler" 
             type="button" 
-            onClick={toggleMenu} // Controlamos el clic con React
+            onClick={toggleMenu}
             aria-expanded={menuAbierto}
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          {/* EL MENÚ DESPLEGABLE: Se muestra u oculta dinámicamente con la clase */}
-          <div className={`collapse navbar-collapse justify-content-end ${menuAbierto ? 'show' : ''}`} id="menuVerticalDerecha">
-            {/* Al hacer clic en cualquier Link, se ejecuta 'cerrarMenu' y la lista lo esconde */}
-            <div className="navbar-nav d-flex flex-column align-items-end pt-3 pt-lg-0 w-100">
-              <Link className="nav-link py-2 text-end" to="/" onClick={cerrarMenu}>Inicio</Link>
-              <Link className="nav-link py-2 text-end" to="/nosotros" onClick={cerrarMenu}>Nosotros</Link>
-              <Link className="nav-link py-2 text-end" to="/servicios" onClick={cerrarMenu}>Servicios</Link>
-              <Link className="nav-link py-2 text-end" to="/contacto" onClick={cerrarMenu}>Contacto</Link>
-            </div>
+          {/* EL MENÚ: horizontal en desktop, desplegable en mobile */}
+          {/* NavLink reemplaza a Link para poder resaltar el link de la página activa */}
+          <div className={`collapse navbar-collapse justify-content-end ${menuAbierto ? 'show' : ''}`}>
+            <ul className="navbar-nav gap-lg-2">
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) => `nav-link ${isActive ? 'nav-link-activo' : ''}`}
+                  to="/"
+                  end
+                  onClick={cerrarMenu}
+                >
+                  Inicio
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) => `nav-link ${isActive ? 'nav-link-activo' : ''}`}
+                  to="/nosotros"
+                  onClick={cerrarMenu}
+                >
+                  Nosotros
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) => `nav-link ${isActive ? 'nav-link-activo' : ''}`}
+                  to="/servicios"
+                  onClick={cerrarMenu}
+                >
+                  Servicios
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) => `nav-link ${isActive ? 'nav-link-activo' : ''}`}
+                  to="/contacto"
+                  onClick={cerrarMenu}
+                >
+                  Contacto
+                </NavLink>
+              </li>
+            </ul>
           </div>
 
         </div>
       </nav>
 
       {/* Sistema de Rutas Dinámicas */}
-      <div className="container my-5">
+      <div className="container my-5 contenido-principal">
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/nosotros" element={<Nosotros />} />
@@ -73,6 +105,9 @@ function App() {
           <Route path="/contacto" element={<Contacto />} />
         </Routes>
       </div>
+
+      {/* Footer Institucional */}
+      <Footer />
     </Router>
   );
 }

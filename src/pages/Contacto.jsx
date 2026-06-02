@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { useLocation } from 'react-router-dom';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Button, Alert, FormControl } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import { ValidarCorreo} from '../components/js_components/contacto';
+import { ValidarNombre } from '../components/js_components/contacto';
+import { FormularioSend } from '../components/js_components/contacto';
 
 export function Contacto() {
   // ---  ESTADOS DE MI FORMULARIO ---
@@ -26,6 +29,8 @@ export function Contacto() {
 
   // --- FUNCIÓN AL ENVIAR LOS DATOS ---
   const onSubmit = (data) => { 
+    FormularioSend(data.nombre, data.email, data.servicio, data.mensaje);
+    
     // Cuando el formulario pasa todas las validaciones, cambio mi estado a true para activar la alerta verde de éxito
     setEnviado(true); 
   };
@@ -52,39 +57,60 @@ export function Contacto() {
           <Form.Group className="mb-3">
             <Form.Label className="fw-bold text-secondary">Empresa / Representante</Form.Label>
             {/* Registro el input con react-hook-form y le indico que es obligatorio.  */}
-            <input 
+            <FormControl 
               type="text" 
               className={`form-control ${errors.nombre ? 'is-invalid' : ''}`} 
-              {...register('nombre', { required: 'Obligatorio' })} 
+              {...register('nombre', { 
+                required: 'Obligatorio',
+                validate: ValidarNombre
+               })} 
             />
+            <Form.Control.Feedback type='invalid'>
+              {errors.nombre?.message}
+            </Form.Control.Feedback>
           </Form.Group>
 
           {/* Campo: Correo Electrónico */}
           <Form.Group className="mb-3">
             <Form.Label className="fw-bold text-secondary">Correo Electrónico</Form.Label>
-            <input 
-              type="email" 
-              className={`form-control ${errors.email ? 'is-invalid' : ''}`} 
-              {...register('email', { required: 'Obligatorio' })} 
-            />
+              <Form.Control 
+                  type="email" 
+                  isInvalid={!!errors.email} 
+                  {...register('email', { 
+                    required: 'Obligatorio',
+                    validate: ValidarCorreo 
+                  })}
+                />
+            <Form.Control.Feedback type="invalid">
+              {errors.email?.message}
+            </Form.Control.Feedback>
           </Form.Group>
 
           {/* Campo: Servicio de Interés (Este campo se auto-completa) */}
           <Form.Group className="mb-3">
             <Form.Label className="fw-bold text-secondary">Servicio de Interés</Form.Label>
-            {/* Le coloco 'readOnly' y fondo gris para que el usuario vea el servicio seleccionado sin poder modificarlo a la fuerza */}
-            <input 
-              type="text" 
-              className="form-control bg-light" 
-              readOnly 
-              {...register('servicio')} 
-            />
+            <Form.Select 
+              className={errors.servicio ? 'is-invalid' : ''}
+              {...register('servicio', { 
+                required: 'Debes seleccionar un servicio' 
+              })}
+            >
+              
+              <option value="" hidden >-- Selecciona un servicio --</option>
+              {/* Opciones disponibles (Cámbialas por los servicios reales que ofreces) */}
+              <option value="Busqueda Inversa de Talento">Búsqueda Inversa de Talento</option>
+              <option value="Programa de Inclusion Laboral">Programa de Inclusion Laboral</option>
+              <option value="Vinculación y Networking">Vinculación y Networking</option>
+            </Form.Select>
+            <Form.Control.Feedback type="invalid">
+              {errors.servicio?.message}
+            </Form.Control.Feedback>
           </Form.Group>
 
           {/* Campo: Mensaje o Comentarios */}
           <Form.Group className="mb-4">
             <Form.Label className="fw-bold text-secondary">Mensaje</Form.Label>
-            <textarea 
+            <textarea  id="Text-Tarea"
               className={`form-control ${errors.mensaje ? 'is-invalid' : ''}`} 
               rows="4" 
               {...register('mensaje', { required: 'Obligatorio' })}
@@ -92,9 +118,12 @@ export function Contacto() {
           </Form.Group>
 
           {/* Botón de Envío: Al hacer clic, el disparador 'handleSubmit' que valida todo antes de llamar a 'onSubmit' */}
-          <Button type="submit" className="w-100 btn-gradiente py-2">
-            Enviar Solicitud Segura
+          <Button type="submit" className="w-100 btn-gradiente py-2" id="Boton-Enviar">
+             Enviar Solicitud Segura
           </Button>
+          <Form.Control.Feedback type="invalid">
+            {errors.Button?.message}
+          </Form.Control.Feedback>
         </Form>
       </div>
     </div>
