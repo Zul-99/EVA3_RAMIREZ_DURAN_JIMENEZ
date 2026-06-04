@@ -109,6 +109,10 @@ export const ValidarNombre = (nombre) => {
     const regexSoloNombre = /^[a-zA-ZÀ-ÿ\u00f1\u00d1\s'-]{3,50}$/;
     if(!nombre) return false;
 
+    if(regexRepeticion.test(nombre)){
+        return "El nombre no puede ser AAA o repetidos" 
+    }
+
     if(nombre.includes('.') || nombre.includes(',')){
         return "El nombre no puede llevar ni puntos ni comas";
     }
